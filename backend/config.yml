@@ -1,0 +1,5 @@
+accounting-software:
+  Xero:
+    balance-sheet-url: "https://dummy-url.com/balance-sheet"
+  MYOB:
+    balance-sheet-url: "https://dummy-url.com/balance-sheet"
