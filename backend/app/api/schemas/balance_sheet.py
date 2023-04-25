@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from app.common.enums import ACCOUNTING_SOFTWARE
-# from app.api.schemas import BusinessDetails
+from .business_details import BusinessDetails
 from typing import List, Literal
 
 class BalanceSheetResponseDTO(BaseModel):
@@ -8,8 +8,7 @@ class BalanceSheetResponseDTO(BaseModel):
     month: int = Field(..., ge=1, le=12)
     profitOrLoss: float
     assetsValue: float
-    pass
     
 class BalanceSheetRequestDTO(BaseModel):
-    # business_details: BusinessDetails
+    business_details: BusinessDetails
     accounting_software: ACCOUNTING_SOFTWARE

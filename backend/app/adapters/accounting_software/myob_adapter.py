@@ -31,4 +31,10 @@ class MYOBAdapter(AbstractAccountingAdapter):
             }
         ]
         
-        return 
+        return balance_sheet
+    
+    def normalize_balance_sheet(self, balance_sheet):
+        for item in balance_sheet:
+            item["profitOrLoss"] = item.pop("monthlyProfit")
+        return balance_sheet
+    

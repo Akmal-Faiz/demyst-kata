@@ -6,8 +6,7 @@ class AccountingAdapterFactory:
         for subclass in AbstractAccountingAdapter.__subclasses__():
             if not subclass.__dict__.get("name"):
                 continue
-            name = subclass.name.lower()
-            if name == accounting_software.lower():
+            if subclass.name == accounting_software:
                 return subclass()
         raise ValueError("No adapter available for accounting software {}".format(accounting_software))
 

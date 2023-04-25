@@ -32,3 +32,6 @@ class XeroAdapter(AbstractAccountingAdapter):
         ]
         
         return balance_sheet
+    
+    def normalize_balance_sheet(self, balance_sheet):
+        return balance_sheet
