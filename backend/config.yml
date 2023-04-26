@@ -3,3 +3,18 @@ accounting-software:
     balance-sheet-url: "https://dummy-url.com/balance-sheet"
   MYOB:
     balance-sheet-url: "https://dummy-url.com/balance-sheet"
+
+rule-engine:
+  rules:
+    profit-last-year:
+      active: true
+    assets-gt-loan:
+      active: true
+
+  strategies:
+    sequential:
+      active: true
+    aggressive:
+      active: false
+    conservative:
+      active: false
