@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from app.api.schemas import BalanceSheetResponseDTO, BalanceSheetRequestDTO
 from app.adapters import AccountingAdapterFactory
-from typing import List
 
 router = APIRouter(
     prefix="/loan-application"
@@ -11,7 +10,7 @@ router = APIRouter(
 async def initialize():
     pass
 
-@router.post("/balance-sheet", response_model=List[BalanceSheetResponseDTO])
+@router.post("/balance-sheet", response_model=list[BalanceSheetResponseDTO])
 async def get_balance_sheet(request: BalanceSheetRequestDTO):
     adapter = AccountingAdapterFactory.create_adapter(request.accounting_software.value)
     normalized_balance_sheet = adapter.normalize_balance_sheet(adapter.fetch_balance_sheet(None, None))
