@@ -5,12 +5,15 @@ accounting-software:
     balance-sheet-url: "https://dummy-url.com/balance-sheet"
 
 rule-engine:
+  # rules implemented in services.preassessment.rules module
+  # order of rules may matter to some strategies
   rules:
     profit-last-year:
       active: true
     assets-gt-loan:
       active: true
 
+  # rules implemented in services.preassessment.strategies module
   strategies:
     sequential:
       active: true
@@ -18,3 +21,6 @@ rule-engine:
       active: false
     conservative:
       active: false
+
+decision-engine:
+  decision-engine-url: "https://dummy-url.com/decision-engine"
