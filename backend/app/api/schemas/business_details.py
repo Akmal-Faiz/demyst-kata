@@ -1,6 +1,5 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel
 
 class BusinessDetails(BaseModel):
-    name: str
+    business_name: str
     year_established: int

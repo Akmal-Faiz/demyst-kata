@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 from app.common.enums import ACCOUNTING_SOFTWARE
 from .business_details import BusinessDetails
-from typing import List, Literal
 
 class BalanceSheetResponseDTO(BaseModel):
     year: int
