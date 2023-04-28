@@ -2,6 +2,10 @@ import axios from 'axios'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL + "/loan-application"
 
+async function getAccountingServices(){
+  return await axios.get(BASE_URL + "/accounting-services")
+}
+
 async function getBalanceSheet(
   businessName,
   establishedYear,
@@ -22,4 +26,4 @@ async function submitLoanApplication(payload) {
   const response = await axios.post(BASE_URL + "/submit", payload)
 }
 
-export { getBalanceSheet, submitLoanApplication }
+export { getAccountingServices, getBalanceSheet, submitLoanApplication,  }
