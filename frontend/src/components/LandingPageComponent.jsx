@@ -4,13 +4,13 @@ import { getAccountingServices } from '../services/LoanApplicationService';
 
 function LandingPageComponent(props) {
   const handleClick = async ()=>{
-    let response = await getAccountingServices()
-    if (response.status===200){
+    try{
+      let response = await getAccountingServices()
       props.setAccountingServices(response.data)
       props.togglePage()
-    }else{
-      console.log(response.detail)
-    }
+    } catch (error){
+      props.setError("Error: Something went wrong..")
+    }   
   }
 
   return (

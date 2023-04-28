@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { getBalanceSheet, submitLoanApplication } from '../services/LoanApplicationService'
 import BalanceSheetComponent from './BalanceSheetComponent'
+import LoanApplicationOutcomeComponent from './LoanApplicationOutcomeComponent'
 
 function LoanApplicationFormComponent(props) {
   const [validated, setValidated] = useState(false);
@@ -10,25 +11,32 @@ function LoanApplicationFormComponent(props) {
   const [establishedYear, setEstablishedYear] = useState('');
   const [accountingService, setAccountingService] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
+  const [loanApplicationOutCome, setLoanApplicationOutcome] = useState({})
 
   const [balanceSheet, setBalanceSheet] = useState([])
 
   const currentYear = new Date().getFullYear();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
 
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      const loanApplicationData = {
-        businessName,
-        establishedYear,
-        accountingService,
-        loanAmount
-      };
-      submitLoanApplication(loanApplicationData);
+      try {
+        let response = await submitLoanApplication(
+          businessName,
+          establishedYear,
+          accountingService,
+          loanAmount
+        );
+
+        console.log(response)
+        setLoanApplicationOutcome(response.data)
+      } catch (error) {
+        props.setError("Error: Something went wrong..")
+      }
     }
 
     setValidated(true);
@@ -42,6 +50,7 @@ function LoanApplicationFormComponent(props) {
       setLoanAmount('');
       setValidated(false);
       setBalanceSheet([]);
+      setLoanApplicationOutcome({});
     };
   }
 
@@ -52,15 +61,14 @@ function LoanApplicationFormComponent(props) {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      let response = await getBalanceSheet(
-        businessName,
-        establishedYear,
-        accountingService
-      )
-      if (response.status === 200) {
-        setBalanceSheet(response.data)
-      } else {
-        console.log(response.details)
+      try {
+        let response = await getBalanceSheet(
+          businessName,
+          establishedYear,
+          accountingService
+        )
+      } catch (error) {
+        props.setError("Error: Something went wrong..")
       }
     }
 
@@ -136,9 +144,10 @@ function LoanApplicationFormComponent(props) {
           </Button>
         </div>
         <div className='d-flex justify-content-end'>
-          <Button variant="secondary" onClick={()=>props.togglePage()} className="m-3">Back</Button>
+          <Button variant="secondary" onClick={() => props.togglePage()} className="m-3">Back</Button>
         </div>
       </Form>
+      {Object.keys(loanApplicationOutCome).length > 0 ? <LoanApplicationOutcomeComponent data={loanApplicationOutCome}></LoanApplicationOutcomeComponent> : <></>}
     </Container>
   )
 

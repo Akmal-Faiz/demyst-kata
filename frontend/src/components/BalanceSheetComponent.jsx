@@ -16,7 +16,7 @@ function BalanceSheetComponent(props) {
       <h3 className="mt-5">Balance Sheet</h3>
       <div className="overflow-scroll mh-100" style={{ height: "200px" }}>
 
-        <Table >
+        <Table className="table-striped">
           <tbody>
             <tr key="labels" style={{ position: "sticky", top: 0, background: "white" }}>
               <td><b>Month</b></td>
