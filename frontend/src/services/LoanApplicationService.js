@@ -12,18 +12,32 @@ async function getBalanceSheet(
   accountingService
 ) {
   const payload = {
-    "business_details": {
-      "business_name": businessName,
-      "year_established": establishedYear
+    "businessDetails": {
+      "businessName": businessName,
+      "yearEstablished": establishedYear
     },
-    "accounting_software": accountingService
+    "accountingSoftware": accountingService
   }
   const response = await axios.post(BASE_URL + "/balance-sheet", payload)
   return response
 }
 
-async function submitLoanApplication(payload) {
+async function submitLoanApplication(
+  businessName,
+  establishedYear,
+  accountingService,
+  loanAmount
+  ) {
+    const payload = {
+      "businessDetails": {
+        "businessName": businessName,
+        "yearEstablished": establishedYear
+      },
+      "accountingSoftware": accountingService,
+      "loanAmount": loanAmount
+    }
   const response = await axios.post(BASE_URL + "/submit", payload)
+  return response
 }
 
 export { getAccountingServices, getBalanceSheet, submitLoanApplication,  }
