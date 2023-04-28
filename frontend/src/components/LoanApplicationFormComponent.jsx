@@ -2,13 +2,16 @@ import React from 'react';
 import { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { getBalanceSheet, submitLoanApplication } from '../services/LoanApplicationService'
+import BalanceSheetComponent from './BalanceSheetComponent'
 
-function LoanApplicationForm() {
+function LoanApplicationFormComponent(props) {
   const [validated, setValidated] = useState(false);
   const [businessName, setBusinessName] = useState('');
   const [establishedYear, setEstablishedYear] = useState('');
   const [accountingService, setAccountingService] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
+
+  const [balanceSheet, setBalanceSheet] = useState([])
 
   const currentYear = new Date().getFullYear();
 
@@ -31,6 +34,17 @@ function LoanApplicationForm() {
     setValidated(true);
   };
 
+  const clearForm = () => {
+    return () => {
+      setBusinessName('');
+      setEstablishedYear('');
+      setAccountingService('');
+      setLoanAmount('');
+      setValidated(false);
+      setBalanceSheet([]);
+    };
+  }
+
   const handleGetBalanceSheet = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -38,12 +52,16 @@ function LoanApplicationForm() {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      const response = await getBalanceSheet(
+      let response = await getBalanceSheet(
         businessName,
         establishedYear,
         accountingService
-        )
-        console.log(response)
+      )
+      if (response.status === 200) {
+        setBalanceSheet(response.data)
+      } else {
+        console.log(response.details)
+      }
     }
 
     setValidated(true);
@@ -96,32 +114,35 @@ function LoanApplicationForm() {
             onChange={(event) => setAccountingService(event.target.value)}
           >
             <option disabled value=""></option>
-            <option value="Xero">Xero</option>
-            <option value="MYOB">MYOB</option>
+            {props.accountingServices.map(ac => (
+              <option value={ac}>{ac}</option>
+            ))}
           </Form.Select>
         </Form.Group>
 
-        <div className="d-flex justify-content-around">
-          <Button variant="primary" type="submit">
+        {balanceSheet.length > 0 ? <BalanceSheetComponent data={balanceSheet} /> : <></>}
+
+        <div className="d-flex justify-content-between">
+          <Button variant="primary" type="submit" className="m-3">
             Submit Application
           </Button>
-          <Button variant="primary" onClick={handleGetBalanceSheet}>
+
+          <Button variant="primary" onClick={handleGetBalanceSheet} className="m-3">
             Get Balance Sheet
           </Button>
-          <Button variant="secondary" onClick={() => {
-            setBusinessName('');
-            setEstablishedYear('');
-            setAccountingService('');
-            setLoanAmount('');
-            setValidated(false);
-          }}>
+
+          <Button variant="secondary" onClick={clearForm()} className="m-3">
             Clear Form
           </Button>
         </div>
-
+        <div className='d-flex justify-content-end'>
+          <Button variant="secondary" onClick={()=>props.togglePage()} className="m-3">Back</Button>
+        </div>
       </Form>
     </Container>
   )
+
+
 }
 
-export default LoanApplicationForm
+export default LoanApplicationFormComponent
