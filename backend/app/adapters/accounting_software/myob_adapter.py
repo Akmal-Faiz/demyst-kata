@@ -8,26 +8,26 @@ class MYOBAdapter(AbstractAccountingAdapter):
             {
                 "year": 2020,
                 "month": 12,
-                "monthlyProfit": 250000,
-                "assetsValue": 1234
+                "monthlyProfit": 0,
+                "assetsValue": 0
             },
             {
                 "year": 2020,
                 "month": 11,
-                "monthlyProfit": 1150,
-                "assetsValue": 5789
+                "monthlyProfit": 0,
+                "assetsValue": 0
             },
             {
                 "year": 2020,
                 "month": 10,
-                "monthlyProfit": 2500,
-                "assetsValue": 22345
+                "monthlyProfit": 0,
+                "assetsValue": 0
             },
             {
                 "year": 2020,
                 "month": 9,
-                "monthlyProfit": -187000,
-                "assetsValue": 223452
+                "monthlyProfit": 0,
+                "assetsValue": 0
             }
         ]
         

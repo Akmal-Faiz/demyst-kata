@@ -1,8 +1,10 @@
 accounting-software:
+  # accounting software implmented in the app.adapters.accounting_software module
   Xero:
     balance-sheet-url: "https://dummy-url.com/balance-sheet"
   MYOB:
     balance-sheet-url: "https://dummy-url.com/balance-sheet"
+    api-key: "<Some api key here>"
 
 rule-engine:
   # rules implemented in services.preassessment.rules module

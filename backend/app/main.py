@@ -3,17 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.api.routes import loan_application
 from starlette.requests import Request
-from starlette.responses import Response
-
 
 app = FastAPI()
 
 app.include_router(loan_application.router)
 
+
 # Configure CORS middleware
-
 # CORS and custom error handling ref: https://github.com/tiangolo/fastapi/issues/775#issuecomment-592946834
-
 
 async def catch_exceptions_middleware(request: Request, call_next):
     try:
