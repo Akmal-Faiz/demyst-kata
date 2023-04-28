@@ -32,7 +32,6 @@ function LoanApplicationFormComponent(props) {
           loanAmount
         );
 
-        console.log(response)
         setLoanApplicationOutcome(response.data)
       } catch (error) {
         props.setError("Error: Something went wrong..")
@@ -67,6 +66,8 @@ function LoanApplicationFormComponent(props) {
           establishedYear,
           accountingService
         )
+        setBalanceSheet(response.data)
+        setLoanApplicationOutcome({});
       } catch (error) {
         props.setError("Error: Something went wrong..")
       }

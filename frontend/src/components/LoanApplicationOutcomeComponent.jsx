@@ -11,7 +11,7 @@ function LoanApplicationOutcomeComponent(props) {
         </tr>
         <tr>
           <td>Approved Amount:</td>
-          <td><b> ${props.data.loanAmountApproved.toFixed(2).toLocaleString("en-US")}</b></td>
+          <td><b> ${props.data.loanAmountApproved.toLocaleString("en-US")}</b></td>
         </tr>
       </tbody>
     </Table>
