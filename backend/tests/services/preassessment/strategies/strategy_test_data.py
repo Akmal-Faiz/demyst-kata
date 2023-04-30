@@ -1,0 +1,1 @@
+VALUES_1 = [(True, 10),(True, 100),(True, 60)]
