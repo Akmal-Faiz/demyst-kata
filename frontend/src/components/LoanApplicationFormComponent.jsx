@@ -12,6 +12,7 @@ function LoanApplicationFormComponent(props) {
   const [accountingService, setAccountingService] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
   const [loanApplicationOutCome, setLoanApplicationOutcome] = useState({})
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true)
 
   const [balanceSheet, setBalanceSheet] = useState([])
 
@@ -68,13 +69,19 @@ function LoanApplicationFormComponent(props) {
         )
         setBalanceSheet(response.data)
         setLoanApplicationOutcome({});
+        setSubmitButtonDisabled(false)
       } catch (error) {
         props.setError("Error: Something went wrong..")
       }
     }
-
     setValidated(true);
   };
+
+  const handleAccountingServiceChange = (event) =>{
+    setBalanceSheet([])
+    setSubmitButtonDisabled(true)
+    setAccountingService(event.target.value)
+  }
 
   return (
     <Container className='d-grid gap-3'>
@@ -120,7 +127,7 @@ function LoanApplicationFormComponent(props) {
           <Form.Select
             required
             value={accountingService}
-            onChange={(event) => setAccountingService(event.target.value)}
+            onChange={handleAccountingServiceChange}
           >
             <option disabled value=""></option>
             {props.accountingServices.map(ac => (
@@ -132,7 +139,7 @@ function LoanApplicationFormComponent(props) {
         {balanceSheet.length > 0 ? <BalanceSheetComponent data={balanceSheet} /> : <></>}
 
         <div className="d-flex justify-content-between">
-          <Button variant="primary" type="submit" className="m-3">
+          <Button id="submit" variant="primary" type="submit" className="m-3" disabled={submitButtonDisabled}>
             Submit Application
           </Button>
 
@@ -140,12 +147,12 @@ function LoanApplicationFormComponent(props) {
             Get Balance Sheet
           </Button>
 
-          <Button variant="secondary" onClick={clearForm()} className="m-3">
+          <Button variant="outline-primary" onClick={clearForm()} className="m-3">
             Clear Form
           </Button>
         </div>
         <div className='d-flex justify-content-end'>
-          <Button variant="secondary" onClick={() => props.togglePage()} className="m-3">Back</Button>
+          <Button variant="outline-primary" onClick={() => props.togglePage()} className="m-3">Back</Button>
         </div>
       </Form>
       {Object.keys(loanApplicationOutCome).length > 0 ? <LoanApplicationOutcomeComponent data={loanApplicationOutCome}></LoanApplicationOutcomeComponent> : <></>}
