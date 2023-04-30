@@ -9,4 +9,4 @@ class DecisionEngineAdapter:
         self.url = config['decision-engine']['decision-engine-url']
         
     def get_decision(self, input:DecisionEngineDTO):
-        return input.preAssessment_value
+        return input['preAssessmentValue']

@@ -22,5 +22,5 @@ async def get_balance_sheet(request: BalanceSheetRequestDTO):
 async def submit(request: LoanApplicationRequestDTO):
     adapter = AccountingAdapterFactory.create_adapter(request.accountingSoftware.value)
     normalized_balance_sheet = adapter.normalize_balance_sheet(adapter.fetch_balance_sheet(None, None))
-    rate, amount = calculate_loan_approval(normalized_balance_sheet, request.loanAmount)
+    rate, amount = calculate_loan_approval(normalized_balance_sheet, request.loanAmount, request.businessDetails)
     return {"loanApprovalRate": rate, "loanAmountApproved": amount}
