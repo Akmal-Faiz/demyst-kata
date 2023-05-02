@@ -21,7 +21,7 @@ class RuleEngine:
     def evaluate(self, *args, **kwargs):
         values = []
         for rule in self.rules:
-            rule_result = rule.evaluate(*args)
+            rule_result = rule.evaluate(*args, **kwargs)
             if rule_result[0]:
                 values.append(rule_result)
         if not values:

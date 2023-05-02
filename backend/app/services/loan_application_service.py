@@ -6,7 +6,7 @@ re = RuleEngine()
 de = DecisionEngineAdapter()
 
 def calculate_loan_approval(balance_sheet, loanAmount, businessDetails):
-    preassessment_rate = re.evaluate(balance_sheet, loanAmount)
+    preassessment_rate = re.evaluate(balance_sheet, loanAmount, businessDetails.businessName, businessDetails.yearEstablished)
     rate = de.get_decision({
         "businessName": businessDetails.businessName,
         "yearEstablished": businessDetails.yearEstablished,
