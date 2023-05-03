@@ -85,6 +85,44 @@ To add the above, additional entries have to be made in the `config.yml` file, f
     - The concrete class must minimally implement the `fetch_balance_sheet` and `normalize_balance_sheet` methods
 - The AccountingAdapterFactory will read config file and inject all implemented accounting software adapters into the application.
 
+```mermaid
+classDiagram
+
+class AccountingAdapterFactory{
+   +create_adapter(): AbstractAccounting Adapter
+}
+
+class MYOBAdapter {
+   - name: str
+   + fetch_balance_sheet(): List[Dict]
+   + normalize_balance_sheet(): List[BalanceSheetMonth]
+}
+
+class XeroAdapter {
+   - name: str
+   + fetch_balance_sheet(): List[Dict]
+   + normalize_balance_sheet(): List[BalanceSheetMonth]
+}
+
+class AbstractAccountingAdapter {
+   <<abstract>>
+   + fetch_balance_sheet(): void
+   + fetch_balance_sheet(): void
+}
+
+class AccountingSoftware {
+      <<enumeration>>
+   Xero
+   MYOB
+}
+
+
+AccountingAdapterFactory ..> AbstractAccountingAdapter
+AbstractAccountingAdapter <|.. XeroAdapter
+AbstractAccountingAdapter <|.. MYOBAdapter
+AccountingAdapterFactory --> AccountingSoftware
+```
+
 # Rule Engine
 The Rule Engine will evaluate the loan application. The details of the loan application is passed to each Rule, each of which will return a boolean flag (to signify if the application has passed the rule check) and a pre-assessment value.
 
