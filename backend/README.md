@@ -73,6 +73,11 @@ Here endpoints are registered to the application, configure CORS and add custom 
 - miscellaneous items are kept in this module.
     - enums for names of accounting services.
 
+# Testing
+run the following command in the top level folder
+
+`python -m pytest`
+
 # Extensibility
 This application was built with extensibility in mind. More accounting software can be onboarded with minimal changes to the existing code. Similarly
 addtional rules and strategies can be added.
